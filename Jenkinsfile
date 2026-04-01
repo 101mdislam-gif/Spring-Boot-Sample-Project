@@ -16,5 +16,13 @@ pipeline {
                 '''
             }
         }
+
+        stage('Docker Build') {
+    steps {
+        sh '''
+        docker build -t your-dockerhub-username/bankapp:latest .
+        '''
+            }
+      }
     }
 }
