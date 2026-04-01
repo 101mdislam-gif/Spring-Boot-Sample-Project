@@ -1,23 +1,19 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'jdk11'
-    }
-
     stages {
-
-        stage('Check Java') {
-            steps {
-                sh 'java -version'
-                sh 'echo $JAVA_HOME'
-            }
-        }
 
         stage('Build') {
             steps {
-                sh 'chmod +x mvnw'
-                sh './mvnw clean package'
+                sh '''
+                export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+                export PATH=$JAVA_HOME/bin:$PATH
+
+                java -version
+
+                chmod +x mvnw
+                ./mvnw clean package
+                '''
             }
         }
     }
